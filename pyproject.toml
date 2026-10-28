@@ -1,0 +1,121 @@
+[build-system]
+requires = ["setuptools>=77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dxquant"
+version = "0.2.0a0"
+description = "Quantitative finance in Python: models, valuation, and risk analytics."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE.txt", "NOTICE"]
+authors = [
+  { name = "DXQuant Contributors", email = "dx@tpq.io" },
+]
+keywords = ["quant-finance", "derivatives", "analytics", "monte-carlo", "risk"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Office/Business :: Financial",
+]
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scipy>=1.11",
+]
+
+[project.optional-dependencies]
+accelerators = [
+  "numba>=0.58",
+  "jax>=0.4",
+  "jaxlib>=0.4",
+]
+dev = [
+  "pytest>=8.1",
+  "pytest-cov>=4.1",
+  "mypy>=1.8",
+  "ruff>=0.3",
+  "pre-commit>=3.6",
+  "build>=1.2",
+  "twine>=5.0",
+  "types-setuptools",
+  "pandas-stubs",
+  "scipy-stubs",
+]
+docs = [
+  "sphinx>=7.2",
+  "myst-parser>=2.0",
+]
+parity = [
+  # Optional deps required to import the legacy ``dx`` package for regression
+  # parity tests. Core DXQuant CI stays self-contained; installing
+  # this extra supplies xarray; the frozen dx tree is also required locally.
+  "xarray>=2023.1",
+]
+notebooks = [
+  "nbformat>=5.9",
+  "nbclient>=0.9",
+  # Tools to execute the tutorial notebooks in CI as a smoke check.
+  "nbconvert>=7.10",
+  "ipykernel>=6.29",
+  "matplotlib>=3.8",
+]
+
+[project.urls]
+Source = "https://github.com/yhilpisch/dxquant"
+Issues = "https://github.com/yhilpisch/dxquant/issues"
+Homepage = "https://github.com/yhilpisch/dxquant"
+"Legacy reference" = "https://github.com/yhilpisch/dx"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --disable-warnings"
+testpaths = ["tests"]
+xfail_strict = true
+
+[tool.ruff]
+line-length = 80
+target-version = "py310"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ANN", "N", "C4"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["dxquant"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["ANN"]
+
+[tool.mypy]
+exclude = ["(^|/)build/", "(^|/)docs/_build/"]
+python_version = "3.10"
+disallow_untyped_defs = true
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+show_error_codes = true
+plugins = []
+
+[[tool.mypy.overrides]]
+module = ["pandas.*", "scipy.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["dxquant.valuation.european"]
+ignore_missing_imports = true
+
+[tool.setuptools.package-data]
+dxquant = ["py.typed"]

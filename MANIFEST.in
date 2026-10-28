@@ -1,0 +1,4 @@
+include CHANGELOG.md CONTRIBUTING.md MIGRATION.md
+recursive-include docs *.py *.rst
+recursive-include tools *.py
+recursive-include notebooks *.ipynb README.md

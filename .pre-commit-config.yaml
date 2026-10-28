@@ -1,0 +1,28 @@
+# Run from the Git repository root after installing dxquant[dev,notebooks].
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: Ruff
+        entry: python -m ruff check --config pyproject.toml src tests docs/conf.py tools notebooks
+        language: system
+        pass_filenames: false
+        files: ^((src|tests|docs|tools)/.*\.py|notebooks/.*\.ipynb)$
+      - id: mypy
+        name: Mypy
+        entry: python -m mypy --config-file pyproject.toml src tests docs/conf.py tools
+        language: system
+        pass_filenames: false
+        files: ^((src|tests|docs|tools)/.*\.py|notebooks/.*\.ipynb)$
+      - id: pytest
+        name: Pytest
+        entry: python -m pytest -c pyproject.toml tests
+        language: system
+        pass_filenames: false
+        files: ^((src|tests|docs|tools)/.*\.py|notebooks/.*\.ipynb)$
+      - id: conventions
+        name: Workspace Python conventions
+        entry: python tools/check_conventions.py
+        language: system
+        pass_filenames: false
+        files: ^((src|tests|docs|tools)/.*\.py|notebooks/.*\.ipynb)$

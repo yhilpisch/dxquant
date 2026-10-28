@@ -1,0 +1,21 @@
+DXQuant — Derivatives Analytics
+Copyright Dr. Yves J. Hilpisch | The Python Quants GmbH
+
+DXQuant's metadata declares AGPL-3.0-or-later. The complete version 3 license text
+is included in LICENSE.txt from the frozen DX reference; license wording
+is unchanged (trailing blank lines are normalized).
+Copyright notices in source files are retained.
+
+DXQuant is inspired by and partly ports DX Analytics:
+https://github.com/yhilpisch/dx
+The frozen legacy checkout is not bundled. DXQuant is a partial rewrite with
+explicitly different numerical/API contracts; it does not claim clean-room
+provenance or complete legacy equivalence.
+
+Well-known numerical formulas were implemented and checked against analytical
+identities and synthetic benchmarks. QuantLib 1.44 was used locally to compute
+synthetic SABR, CIR, and Heston test fixtures. QuantLib itself is not bundled.
+Runtime dependencies retain their own licenses and are installed separately.
+
+Research, structuring, drafting, and visualizations were assisted by different
+LLMs as co-writing tools under human direction.

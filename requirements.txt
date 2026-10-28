@@ -1,0 +1,4 @@
+# Runtime dependencies for dxquant. Keep in sync with pyproject.toml [project.dependencies].
+numpy>=1.24
+pandas>=2.0
+scipy>=1.11
